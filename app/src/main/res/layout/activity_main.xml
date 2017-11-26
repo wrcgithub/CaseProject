@@ -1,13 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="demo.wrc.com.project.base.MainActivity">
     <include layout="@layout/title_bar"></include>
-    <TextView
-        android:text="Hello World!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/frament_container_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rg_tab"
+        android:layout_below="@+id/title_bar"
+        />
+
+
+    <RadioGroup
+        android:id="@+id/rg_tab"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:layout_alignParentBottom="true"
+        >
+
+        <RadioButton
+            android:id="@+id/rb_ui"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="UI"
+            android:textSize="14sp"
+            android:drawableTop="@drawable/tab_ui_select"
+            android:gravity="center"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_http"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="网络"
+            android:textSize="14sp"
+            android:drawableTop="@drawable/tab_http_select"
+            android:gravity="center"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_sqlite"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="数据库"
+            android:textSize="14sp"
+            android:drawableTop="@drawable/tab_sqlite_select"
+            android:gravity="center"
+            android:checked="false"/>
+
+
+        <RadioButton
+            android:id="@+id/rb_wode"
+            android:layout_width="0dp"
+            android:padding="@dimen/dp1"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="我的"
+            android:textSize="14sp"
+            android:drawableTop="@drawable/tab_wode_select"
+            android:gravity="center"
+            android:checked="false"/>
+
+
+    </RadioGroup>
+</RelativeLayout>

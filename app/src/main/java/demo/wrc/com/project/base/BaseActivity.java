@@ -2,6 +2,9 @@ package demo.wrc.com.project.base;
 
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,16 +20,27 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import demo.wrc.com.project.R;
 import demo.wrc.com.project.utils.MyToast;
 import demo.wrc.com.project.utils.TitleBar;
 
 
-public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public   class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
+
+	private FragmentManager fragmentManager;
+	private Map<String, String> fragmentMap = new HashMap<>();
+	private BaseFragment showFragment;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+//		initView();
+		initData();
 		getSupportActionBar().hide();
+		fragmentManager = getFragmentManager();
 		fullScreen(this);
 		BaseApplication.getInstance().addActivity(this);
 
@@ -46,9 +60,14 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 		return false;
 	}
 
-	protected void init() {
-
-	}
+	/**
+	 *  初始化布局ID
+	 */
+	protected    void initView(){};
+	/**
+     *  初始化数据
+	 */
+	protected    void initData(){};
 
 
 
@@ -87,13 +106,16 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
 	}
 
-
+//	@Override
+//	public void onClick(View v) {
+//		super.onClick(v);
+//	}
 	@Override
 	public void onClick(View v) {
-
-			onClickView(v.getId());
+//		super.onClick(v);
+		onClickView(v.getId());
 	}
-	protected  void onClickView(int id){}
+	protected   void onClickView(int id){};
 
 	public static void setHintTextSize(EditText editText, String hintText, int textSize) {
 		// 新建一个可以添加属性的文本对象
@@ -148,4 +170,64 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 			}
 		}
 	}
+	/**
+	 * 带默认过程动画的启动Activity方式
+	 * @param intent
+	 */
+	@Override
+	public void startActivity(Intent intent) {
+		this.startActivity(intent, R.anim.activity_in_rigth, R.anim.activity_out);
+	}
+
+	/**
+	 * 自定义过场动画的Activity启动方式
+	 * @param intent
+	 * @param animin
+	 * @param animout
+	 */
+	public void startActivity(Intent intent, int animin, int animout) {
+		super.startActivity(intent);
+		overridePendingTransition(animin, animout);
+	}
+
+	/**
+	 * fragment管理 -- 不包含过程动画的方式
+	 */
+	public void fragmentManager(int fl_resid, Class fclass){
+		fragmentManager(fl_resid, 0, 0, fclass);
+	}
+
+	/**
+	 * 包含动画的fragment管理
+	 * @param fl_resid 给fragment占位的布局id
+	 * @param fclass fragment进入的动画
+	 * @param inanim fragment退出的动画
+	 * @param outanim 需要显示的fragment的Class对象
+	 */
+	public void fragmentManager(int fl_resid, int inanim, int outanim, Class<BaseFragment> fclass){
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		if(inanim != 0 || outanim != 0){
+			fragmentTransaction.setCustomAnimations(inanim, outanim);
+		}
+		if(fragmentMap.containsKey(fclass.getName())){
+			BaseFragment fragment = (BaseFragment) fragmentManager.findFragmentByTag(fragmentMap.get(fclass.getName()));
+			if(showFragment != null && fragment.getClass() != showFragment.getClass()){
+				fragmentTransaction.hide(showFragment);
+			}
+			fragmentTransaction.show(fragment);
+			showFragment = fragment;
+		} else {
+			BaseFragment baseFragment = BaseFragment.getInstance(fclass);
+			fragmentTransaction.add(fl_resid, baseFragment, baseFragment.getFTag());
+			fragmentMap.put(fclass.getName(), baseFragment.getFTag());
+
+			if(showFragment != null && baseFragment.getClass() != showFragment.getClass()){
+				fragmentTransaction.hide(showFragment);
+			}
+			showFragment = baseFragment;
+		}
+		fragmentTransaction.commit();
+	}
+
+
 }
