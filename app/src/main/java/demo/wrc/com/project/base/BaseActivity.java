@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import demo.wrc.com.project.R;
-import demo.wrc.com.project.utils.MyToast;
 import demo.wrc.com.project.utils.TitleBar;
+import demo.wrc.com.project.utils.ToastUtil;
 
 
 public   class BaseActivity extends AppCompatActivity implements View.OnClickListener {
@@ -131,12 +131,12 @@ public   class BaseActivity extends AppCompatActivity implements View.OnClickLis
 
 	public  void showShortToast(String message){
 
-		MyToast.showToast(this,message,Toast.LENGTH_SHORT);
+		ToastUtil.showToast(this,message,Toast.LENGTH_SHORT);
 
 	}
 	public  void showLongToast(String message){
 
-		MyToast.showToast(this,message,Toast.LENGTH_LONG);
+		ToastUtil.showToast(this,message,Toast.LENGTH_LONG);
 
 	}
 

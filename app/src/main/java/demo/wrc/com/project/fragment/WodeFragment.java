@@ -29,4 +29,10 @@ public class WodeFragment extends BaseFragment {
     protected void initData() {
 
     }
+
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }

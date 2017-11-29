@@ -14,7 +14,7 @@ import android.view.ViewGroup;
  * 全局Fragment的基类
  * Created by wrc on 2017/11/26/026.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements View.OnClickListener {
 
     protected Activity mActivity;
 
