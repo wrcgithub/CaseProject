@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="demo.wrc.com.project.base.MainActivity">
-    <include layout="@layout/title_bar"></include>
+    <include layout="@layout/title_bar"
+        android:visibility="gone"
+        ></include>
     <FrameLayout
         android:id="@+id/frament_container_main"
         android:layout_width="match_parent"

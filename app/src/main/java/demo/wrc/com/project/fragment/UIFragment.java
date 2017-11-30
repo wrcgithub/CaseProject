@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import demo.wrc.com.project.R;
 import demo.wrc.com.project.base.BaseFragment;
-import demo.wrc.com.project.utils.ToastUtil;
 
 
 /**
@@ -43,9 +42,9 @@ public class UIFragment extends BaseFragment {
         mTvRating = (TextView) view.findViewById(R.id.tv_rating);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         mTabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
-        mTabLayout.addTab(mTabLayout.newTab().setText("作者信息"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("章节"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("书籍简介"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("第一回"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("第二回"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("第三回"));
 
     }
 
@@ -53,7 +52,7 @@ public class UIFragment extends BaseFragment {
     @Override
     protected void initData() {
         mTvTitle.setText("Material Design（材质设计）是Google在2014年I/O大会上发布的一种新的设计规范。");
-        mIvBook.setImageResource(R.mipmap.ic_launcher);
+        mIvBook.setImageResource(R.mipmap.img_medg01);
         mIvBook.setOnClickListener(UIFragment.this);
     }
 
@@ -63,7 +62,8 @@ public class UIFragment extends BaseFragment {
 
         switch (v.getId()){
             case  R.id.iv_book_image:
-                ToastUtil.showToast(getActivity(),"点我干嘛",0);
+                fragmentManager(R.id.frament_container_main,ChangeUserInfoFragment.class);
+//                ToastUtil.showToast(getActivity(),"点我干嘛",0);
                 break;
 
 
