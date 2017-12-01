@@ -38,7 +38,7 @@ public class ErrorDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = View.inflate(context, R.layout.dialog_image, null);
+        View view = View.inflate(context, R.layout.dialog_image01, null);
         setContentView(view);
         
         setCanceledOnTouchOutside(false);
