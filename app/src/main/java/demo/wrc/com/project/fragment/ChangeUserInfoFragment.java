@@ -19,6 +19,7 @@ import demo.wrc.com.project.base.BaseFragment;
 import demo.wrc.com.project.callback.OnClickDialog;
 import demo.wrc.com.project.custemview.CircleImageView;
 import demo.wrc.com.project.popup.CustomDialogUtil;
+import demo.wrc.com.project.utils.ToastUtil;
 
 
 /**
@@ -59,20 +60,35 @@ public class ChangeUserInfoFragment extends BaseFragment {
         
         switch (v.getId()) {
             case R.id.userinfo_set_img:
-                CustomDialogUtil.showDialog(getActivity(), true, "进入相册", new OnClickDialog() {
-                    
+//                CustomDialogUtil.showDialogConfirmImg(getActivity(), true, "进入相册", new OnClickDialog() {
+//
+//                    @Override
+//                    public void confirm(boolean flag, String msg) {
+//                        switchPhoto();
+//                    }
+//
+//
+//                    @Override
+//                    public void cancel(String errMsg) {
+//
+//                    }
+//                });
+    
+                CustomDialogUtil.showDialogTwoImg(getActivity(), false, "相册", "相机", "头像获取方式", R.mipmap.dialog_default01, R.mipmap.dialog_default01, new OnClickDialog() {
+    
                     @Override
                     public void confirm(boolean flag, String msg) {
                         switchPhoto();
                     }
-                    
-                    
+    
+    
                     @Override
                     public void cancel(String errMsg) {
-                    
+    
+                        ToastUtil.showToast(getActivity(),"暂不支持", 0);
                     }
                 });
-//                ToastUtil.showToast(getActivity(),"点我干嘛",0);
+                
                 break;
             
             

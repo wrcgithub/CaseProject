@@ -49,7 +49,7 @@ public class ErrorDialog extends Dialog {
         lp.width = DensityUtil.dip2px(context, 200);
         win.setAttributes(lp);
         
-        view.findViewById(R.id.btn_cancel).setOnClickListener(new Button.OnClickListener() {
+        view.findViewById(R.id.dialog_btn_cancel).setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();

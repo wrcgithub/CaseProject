@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import demo.wrc.com.project.utils.DensityUtil;
 
@@ -145,13 +147,23 @@ public class CustomDialog extends Dialog {
         }
         
         
-        public Builder addViewonclick(int layoutId, View.OnClickListener listener) {
+        public Builder addViewonclick(int viewRes, View.OnClickListener listener) {
             
-            view.findViewById(layoutId).setOnClickListener(listener);
+            view.findViewById(viewRes).setOnClickListener(listener);
             return this;
             
         }
-        
+        public Builder setText(int viewRes,String msg){
+          TextView textView =  (TextView)view.findViewById(viewRes);
+          textView.setText(msg);
+            return  this;
+        }
+    
+        public Builder setImage(int viewRes,int drawable){
+            ImageView imageView =  (ImageView)view.findViewById(viewRes);
+            imageView.setImageResource(drawable);
+            return  this;
+        }
         
         public CustomDialog build() {
             
