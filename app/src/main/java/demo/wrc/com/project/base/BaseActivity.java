@@ -28,7 +28,7 @@ import demo.wrc.com.project.utils.TitleBar;
 import demo.wrc.com.project.utils.ToastUtil;
 
 
-public   class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public   class BaseActivity extends AppCompatActivity  {
 
 
 	private FragmentManager fragmentManager;
@@ -38,7 +38,7 @@ public   class BaseActivity extends AppCompatActivity implements View.OnClickLis
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 //		initView();
-		initData();
+//		initData();
 		getSupportActionBar().hide();
 		fragmentManager = getFragmentManager();
 		fullScreen(this);
@@ -106,16 +106,6 @@ public   class BaseActivity extends AppCompatActivity implements View.OnClickLis
 
 	}
 
-//	@Override
-//	public void onClick(View v) {
-//		super.onClick(v);
-//	}
-	@Override
-	public void onClick(View v) {
-//		super.onClick(v);
-		onClickView(v.getId());
-	}
-	protected   void onClickView(int id){};
 
 	public static void setHintTextSize(EditText editText, String hintText, int textSize) {
 		// 新建一个可以添加属性的文本对象
@@ -131,12 +121,12 @@ public   class BaseActivity extends AppCompatActivity implements View.OnClickLis
 
 	public  void showShortToast(String message){
 
-		ToastUtil.showToast(this,message,Toast.LENGTH_SHORT);
+		ToastUtil.toast(message);
 
 	}
 	public  void showLongToast(String message){
-
-		ToastUtil.showToast(this,message,Toast.LENGTH_LONG);
+		
+		ToastUtil.toast(message);
 
 	}
 

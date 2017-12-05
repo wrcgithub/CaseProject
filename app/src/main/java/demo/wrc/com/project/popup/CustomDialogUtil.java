@@ -4,7 +4,8 @@ import android.content.Context;
 import android.view.View;
 
 import demo.wrc.com.project.R;
-import demo.wrc.com.project.callback.OnClickDialog;
+import demo.wrc.com.project.callback.OnClickDialogChoice;
+import demo.wrc.com.project.callback.OnClickDialogTwoImg;
 
 
 /**
@@ -16,8 +17,10 @@ public class CustomDialogUtil {
     public static CustomDialog dailog;
     
     
-    public static void showDialogConfirmImg(Context context, final boolean flag, final String msg , final  OnClickDialog linstener) {
-        
+    public static void showDialogConfirmImg(Context context, final boolean flag, final String msg , final OnClickDialogChoice linstener) {
+        if (context == null){
+            return;
+        }
         dailog = new CustomDialog.Builder(context).outSideCancel(false).view(R.layout.dialog_image01)
                 .widthDimenRes(R.dimen.dp200).heightDinmenRes(R.dimen.dp250).style(R.style.Dialog).addViewonclick(R.id.dialog_btn_cancel, new View.OnClickListener() {
                     
@@ -33,22 +36,24 @@ public class CustomDialogUtil {
         ;
         
     }
-    public static void showDialogTwoImg(Context context, final boolean flag, final String leftText, final String rightText, final String msg , final int drawableleftRes , final int drawableRightRes , final  OnClickDialog linstener) {
-        
+    public static void showDialogTwoImg(Context context, final boolean flag, final String leftText, final String rightText, final String msg , final int drawableleftRes , final int drawableRightRes , final OnClickDialogTwoImg linstener) {
+        if (context == null){
+            return;
+        }
         dailog = new CustomDialog.Builder(context).outSideCancel(false).view(R.layout.dialog_image02)
                 .widthDimenRes(R.dimen.dp200).heightDinmenRes(R.dimen.dp200).style(R.style.Dialog).addViewonclick(R.id.dialog_left_img, new View.OnClickListener() {
                     
                     @Override
                     public void onClick(View v) {
-                        linstener.confirm(flag,msg);
+                        linstener.leftImage(0,msg);
                         dailog.dismiss();
                     }
                 })
-                .addViewonclick(R.id.dialog_left_img, new View.OnClickListener() {
+                .addViewonclick(R.id.dialog_right_img, new View.OnClickListener() {
     
                     @Override
                     public void onClick(View v) {
-                        linstener.cancel(msg);
+                        linstener.rightImage(1,msg);
                         dailog.dismiss();
                     }
                 })

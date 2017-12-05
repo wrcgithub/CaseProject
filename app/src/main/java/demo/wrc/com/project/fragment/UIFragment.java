@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import demo.wrc.com.project.R;
+import demo.wrc.com.project.adapter.TabLayoutViewPagerAdapter;
 import demo.wrc.com.project.base.BaseFragment;
 
 
@@ -23,8 +27,9 @@ public class UIFragment extends BaseFragment {
     private TextView mTvTitle;
     private TextView mTvMsg;
     private TextView mTvRating;
-    private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    
+    private ViewPager mViewPager;
     @Override
     protected int getLayoutId() {
 
@@ -33,19 +38,62 @@ public class UIFragment extends BaseFragment {
 
 
     @Override
-    protected void initView(View view, Bundle savedInstanceState) {
+    protected void initView(final View view, Bundle savedInstanceState) {
 
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar_layout);
         mIvBook = (ImageView) view.findViewById(R.id.iv_book_image);
         mTvTitle = (TextView) view.findViewById(R.id.tv_title);
         mTvMsg = (TextView) view.findViewById(R.id.tv_msg);
         mTvRating = (TextView) view.findViewById(R.id.tv_rating);
-        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+//        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         mTabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
-        mTabLayout.addTab(mTabLayout.newTab().setText("第一回"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("第二回"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("第三回"));
-
+        mViewPager = (ViewPager) view.findViewById(R.id.tablayout_viewpager);
+       
+        
+        UIFragmentOne oneFragment = new UIFragmentOne();
+        UIFragmentTwo twoFragment = new UIFragmentTwo();
+        UIFragmentThree threeFragment = new UIFragmentThree();
+        List<BaseFragment> listFragment = new ArrayList<>();
+        listFragment.add(oneFragment);
+        listFragment.add(twoFragment);
+        listFragment.add(threeFragment);
+        mViewPager.setAdapter(new TabLayoutViewPagerAdapter(getFragmentManager(),listFragment));
+        mViewPager.setCurrentItem(0);
+        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.getTabAt(0).setText("第一回");
+        mTabLayout.getTabAt(1).setText("第二回");
+        mTabLayout.getTabAt(2).setText("第三回");
+        
+//        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                switch (position) {
+//                    case 0:
+//                       mViewPager.setCurrentItem(position);
+//                        break;
+//                    case 1:
+//
+//                        break;
+//                    case 2:
+//
+//                        break;
+//
+//                }
+//            }
+//
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
     }
 
 

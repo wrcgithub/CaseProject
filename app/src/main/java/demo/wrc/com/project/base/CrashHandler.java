@@ -1,163 +1,251 @@
 package demo.wrc.com.project.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Looper;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import demo.wrc.com.project.utils.Files;
-import demo.wrc.com.project.utils.StringUtil;
+import demo.wrc.com.project.callback.OnClickDialogChoice;
+import demo.wrc.com.project.popup.CustomDialogUtil;
+import demo.wrc.com.project.utils.ByteUtil;
+import demo.wrc.com.project.utils.ToastUtil;
 
 
 /**
- * UncaughtException处理类,当程序发生Uncaught异常的时候,有该类来接管程序,并记录发送错误报告.
- * 
- * @author user
- * 
+ * 应用异常崩溃处理器
+ * 1)重置应用异常处理器;
+ * 2)捕获应用异常堆栈信息并存储;
+ * 3)重启应用
+ *
  */
-public class CrashHandler implements UncaughtExceptionHandler {
-	public static final String TAG = "CrashHandler";
-	// 系统默认的UncaughtException处理类
-	private UncaughtExceptionHandler mDefaultHandler;
-	// CrashHandler实例
-	private static CrashHandler INSTANCE = new CrashHandler();
-	// 程序的Context对象
+public class CrashHandler implements Thread.UncaughtExceptionHandler {
+	public static final String CRASH_DIR = "/CaseDemo/ErrLog";
+	
+	private static CrashHandler mInstance = new CrashHandler();
+	
 	private Context mContext;
-	// 用来存储设备信息和异常信息
-	private Map<String, String> infos = new HashMap<String, String>();
-	// 用于格式化日期,作为日志文件名的一部分
-	private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-
-	/** 保证只有一个CrashHandler实例 */
-	private CrashHandler() {
-	}
-
-	/** 获取CrashHandler实例 ,单例模式 */
+	private Thread.UncaughtExceptionHandler mDefaultHandler;
+	
+	
 	public static CrashHandler getInstance() {
-		return INSTANCE;
+		return mInstance;
 	}
-
-	/**
-	 * 初始化
-	 * 
-	 * @param context
-	 */
+	
 	public void init(Context context) {
 		mContext = context;
-		// 获取系统默认的UncaughtException处理器
 		mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
-		// 设置该CrashHandler为程序的默认处理器
-		Thread.setDefaultUncaughtExceptionHandler(this);
 	}
-
-	/**
-	 * 当UncaughtException发生时会转入该函数来处理
-	 */
+	
+	private CrashHandler() {}
+	
+	
+	@Override
 	public void uncaughtException(Thread thread, Throwable ex) {
-		if (!handleException(ex) && mDefaultHandler != null) {
-			// 如果用户没有处理则让系统默认的异常处理器来处理
+		boolean handle = handleException(thread, ex);
+		if (!handle && mDefaultHandler != null) {
 			mDefaultHandler.uncaughtException(thread, ex);
-		} else {
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-			}
+			return;
 		}
-		android.os.Process.killProcess(android.os.Process.myPid());
-		BaseApplication.getInstance().exit();
 	}
-
 	/**
-	 * 自定义错误处理,收集错误信息 发送错误报告等操作均在此完成.
-	 * 
-	 * @param ex
-	 * @return true:如果处理了该异常信息;否则返回false.
+	 * 异常处理，自定义异常处理实现。
+	 * @param thread 抛出异常的线程
+	 * @param ex 异常栈
+	 * @return 是否处理
 	 */
-	private boolean handleException(Throwable ex) {
+	private boolean handleException(Thread thread, Throwable ex) {
 		if (ex == null) {
 			return false;
 		}
-		// 使用Toast来显示异常信息
-		new Thread() {
+		
+		Map<String,String> pkgInfo = collectApplicationPacketInfo(mContext, thread);
+		String crashInfo = makeCrashInfo(pkgInfo, ex);
+		String fileName = makeFileName();
+		saveCrashInfo(fileName, crashInfo);
+		refreshCrashDir(fileName);
+		
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				Looper.prepare();
-				if (!StringUtil.isSDcard()) {
-					Toast.makeText(mContext, "SD卡已卸载，请拔掉数据线", Toast.LENGTH_SHORT).show();
-				}else {
-					Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出.", Toast.LENGTH_SHORT).show();}
+				StringBuilder info = new StringBuilder();
+				info.append("示例\n")
+						.append("应用程序异常，请重启动终端！");
+				AppCompatActivity context = BaseApplication.getInstance().getTopActivity();
+				if (context != null) {
+					ToastUtil.toast("应用异常，请重启终端");
+					BaseApplication.getInstance().exitApplication(1);
+					return;
+				}
+				
+			CustomDialogUtil.showDialogConfirmImg(context, true, info.toString(), new OnClickDialogChoice() {
+
+                    @Override
+                    public void confirm(boolean flag, String msg) {
+                    }
+
+
+                    @Override
+                    public void cancel(String errMsg) {
+
+                    }
+                });
+				
+				
 				Looper.loop();
 			}
-		}.start();
-		// 收集设备参数信息
-		collectDeviceInfo(mContext);
-		// 保存日志文件
-		saveCrashInfo2File(ex);
-		//删除30天之前日志
-		getFileDir();
+		}).start();
+		
 		return true;
 	}
-
+	
 	/**
-	 * 收集设备参数信息
-	 * @param ctx
+	 * 刷新外部存储目录
+	 * @param fileName 待刷新的文件名
 	 */
-	public void collectDeviceInfo(Context ctx) {
+	private void refreshCrashDir(String fileName) {
+		Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+		File file = new File(getCrashDir() + File.separator + fileName);
+		intent.setData(Uri.fromFile(file));
+		mContext.sendBroadcast(intent);
+	}
+	
+	/**
+	 * 存放异常日志的目录
+	 * @return
+	 */
+	private static String getCrashDir() {
+		File extDir = Environment.getExternalStorageDirectory();
+		return extDir.getAbsolutePath() + CRASH_DIR;
+	}
+	
+	/**
+	 * 生成异常日志文件名</br>
+	 * 生成规则：crash-yyyyMMddHHmmss.log
+	 * @return 异常日志文件名
+	 */
+	private static String makeFileName() {
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HHmmss-");
+		String time = formatter.format(new Date());
+		return  time +"crash" + ".log";
+	}
+	
+	/**
+	 * 存储异常日志数据到外部存储的文件中
+	 * @param fileName 异常日志文件名
+	 * @param crashInfo 异常日志数据
+	 * @return
+	 */
+	private boolean saveCrashInfo(String fileName, String crashInfo) {
+		String state = Environment.getExternalStorageState();
+		if (!state.equals(Environment.MEDIA_MOUNTED)) {
+			return false;
+		}
+		
+		String dirName = getCrashDir();
+		File crashDir = new File(dirName);
+		if (!crashDir.exists()) {
+			crashDir.mkdirs();
+		}
+		
+		FileOutputStream fos = null;
+		BufferedOutputStream bos = null;
 		try {
-			PackageManager pm = ctx.getPackageManager();
-			PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(), PackageManager.GET_ACTIVITIES);
+			fos = new FileOutputStream(dirName + File.separator + fileName);
+			bos = new BufferedOutputStream(fos);
+			bos.write(ByteUtil.toGBK(crashInfo));
+			bos.flush();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			closeQuietly(bos);
+			closeQuietly(fos);
+		}
+		return false;
+	}
+	
+	/**
+	 * 收集应用程序包和平台相关的信息
+	 * @param context 应用上下文对象
+	 * @param thread 抛出异常的线程
+	 * @return 包和平台相关信息
+	 */
+	private Map<String,String> collectApplicationPacketInfo(Context context, Thread thread) {
+		Map<String,String> pkgInfo = new HashMap<String,String>();
+		pkgInfo.put("Thread-ID", Long.toString(thread.getId()));
+		pkgInfo.put("Thread-Name", thread.getName());
+		pkgInfo.put("Thread-Priority", Integer.toString(thread.getPriority()));
+		
+		PackageManager pm = context.getPackageManager();
+		try {
+			PackageInfo pi = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES);
 			if (pi != null) {
 				String versionName = pi.versionName == null ? "null" : pi.versionName;
 				String versionCode = pi.versionCode + "";
-				infos.put("versionName", versionName);
-				infos.put("versionCode", versionCode);
+				pkgInfo.put("versionName", versionName);
+				pkgInfo.put("versionCode", versionCode);
 			}
 		} catch (NameNotFoundException e) {
+			e.printStackTrace();
 		}
+		
 		Field[] fields = Build.class.getDeclaredFields();
 		for (Field field : fields) {
+			field.setAccessible(true);
 			try {
-				field.setAccessible(true);
-				infos.put(field.getName(), field.get(null).toString());
-			} catch (Exception e) {
+				pkgInfo.put(field.getName(), field.get(null).toString());
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
 			}
 		}
+		
+		return pkgInfo;
 	}
-
+	
 	/**
-	 * 保存错误信息到文件中
-	 * 
-	 * @param ex
-	 * @return 返回文件名称,便于将文件传送到服务器
+	 * 构造异常日志信息
+	 * @param pkgInfo 应用包及平台相关信息
+	 * @param ex 异常栈
+	 * @return 异常日志信息
 	 */
-	private String saveCrashInfo2File(Throwable ex) {
-
-		StringBuffer sb = new StringBuffer();
-		for (Map.Entry<String, String> entry : infos.entrySet()) {
-			String key = entry.getKey();
-			String value = entry.getValue();
-			sb.append(key + "=" + value + "\n");
+	private String makeCrashInfo(Map<String,String> pkgInfo, Throwable ex) {
+		StringBuffer info = new StringBuffer();
+		for (Map.Entry<String, String> entry : pkgInfo.entrySet()) {
+			info.append(entry.getKey())
+					.append(" = ")
+					.append(entry.getValue())
+					.append("\n");
 		}
-		Writer writer = new StringWriter();
-		PrintWriter printWriter = new PrintWriter(writer);
+		info.append("--------------------------------------------------------------------------------\n");
+		Writer stack = new StringWriter();
+		PrintWriter printWriter = new PrintWriter(stack);
 		ex.printStackTrace(printWriter);
 		Throwable cause = ex.getCause();
 		while (cause != null) {
@@ -165,63 +253,22 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			cause = cause.getCause();
 		}
 		printWriter.close();
-		String result = writer.toString();
-		sb.append(result);
-		try {
-			long timestamp = System.currentTimeMillis();
-			String time = formatter.format(new Date());
-			String fileName = time + "-" + timestamp + ".log";
-
-			File dir = new File(Files.errfile);
-			if (!dir.exists()) {
-				dir.mkdirs();
-			}
-			FileOutputStream fos = new FileOutputStream(Files.errfile + fileName);
-			fos.write(sb.toString().getBytes());
-			fos.close();
-			return fileName;
-		} catch (Exception e) {
-		}
-		return null;
+		info.append(stack.toString());
+		
+		return info.toString();
 	}
-
+	
 	/**
-	 * wangrongchao 2016.04.06 增加删除30天之前的log日志
+	 * 关闭输出流对象
+	 * @param os 输出流对象
 	 */
-	public void getFileDir() {
-		try {
-			File f = new File(Files.errfile);
-			File[] files = f.listFiles();// 列出所有文件
-			long nowTime = System.currentTimeMillis();
-			// 将所有文件存入list中
-			if (files != null) {
-				int count = files.length;// 文件个数
-				for (int i = 0; i < count; i++) {
-					File file = files[i];
-				//	items.add(file.getName()); // 获取文件的名称 如:20160301.txt
-				//	paths.add(file.getPath()); // 获取文件的路径 如:/storage/sdcard0
-					if (file.getName().length() > 33) {
-						String mills = file.getName().substring(20, 33);
-						if (isNumber(mills)) {
-							long oldTime = Long.parseLong(mills);
-							if (nowTime - oldTime >= 2592000000L ) {//19天:1641600000
-								files[i].delete();
-							}
-						}
-					}
-				}
+	private static void closeQuietly(OutputStream os) {
+		if (os != null) {
+			try {
+				os.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			// files[0].delete(); // 删除该文件
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
-
-	}
-
-	// 判断是否为纯数字组成的字符串
-	public static boolean isNumber(String mobile) {
-		Pattern p = Pattern.compile("^[1-9]\\d*$");
-		Matcher m = p.matcher(mobile);
-		return m.matches();
 	}
 }

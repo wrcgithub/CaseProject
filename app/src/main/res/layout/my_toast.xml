@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@null" >
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:background="@drawable/toast_shap"
         android:gravity="center"
-        android:orientation="vertical"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp" >
+        >
 
         <TextView
             android:id="@+id/message"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@color/colorWhitle"
-            android:textSize="21sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -16,10 +16,9 @@ import java.io.IOException;
 
 import demo.wrc.com.project.R;
 import demo.wrc.com.project.base.BaseFragment;
-import demo.wrc.com.project.callback.OnClickDialog;
+import demo.wrc.com.project.callback.OnClickDialogTwoImg;
 import demo.wrc.com.project.custemview.CircleImageView;
 import demo.wrc.com.project.popup.CustomDialogUtil;
-import demo.wrc.com.project.utils.ToastUtil;
 
 
 /**
@@ -60,7 +59,7 @@ public class ChangeUserInfoFragment extends BaseFragment {
         
         switch (v.getId()) {
             case R.id.userinfo_set_img:
-//                CustomDialogUtil.showDialogConfirmImg(getActivity(), true, "进入相册", new OnClickDialog() {
+//                CustomDialogUtil.showDialogConfirmImg(getActivity(), true, "进入相册", new OnClickDialogChoice() {
 //
 //                    @Override
 //                    public void confirm(boolean flag, String msg) {
@@ -74,19 +73,20 @@ public class ChangeUserInfoFragment extends BaseFragment {
 //                    }
 //                });
     
-                CustomDialogUtil.showDialogTwoImg(getActivity(), false, "相册", "相机", "头像获取方式", R.mipmap.dialog_default01, R.mipmap.dialog_default01, new OnClickDialog() {
+                CustomDialogUtil.showDialogTwoImg(getActivity(), false, "相册", "拍照", "头像获取方式", R.mipmap.dialog_default01, R.mipmap.dialog_default01, new OnClickDialogTwoImg() {
     
                     @Override
-                    public void confirm(boolean flag, String msg) {
+                    public void leftImage(int ret, String msg) {
                         switchPhoto();
                     }
     
     
                     @Override
-                    public void cancel(String errMsg) {
-    
-                        ToastUtil.showToast(getActivity(),"暂不支持", 0);
+                    public void rightImage(int ret, String msg) {
+                            switchShoot();
                     }
+    
+    
                 });
                 
                 break;
@@ -103,6 +103,23 @@ public class ChangeUserInfoFragment extends BaseFragment {
     }
     
     
+    /**
+     * 跳转到拍照
+     */
+    private void switchShoot(){
+    
+        Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent2.putExtra(MediaStore.EXTRA_OUTPUT,
+                Uri.fromFile(new File(path, "head.jpg")));
+        startActivityForResult(intent2, 2);// 采用ForResult打开
+        
+        
+    }
+    
+    
+    /**
+     * 跳转到系统相册
+     */
     private void switchPhoto() {
         
         Intent intent1 = new Intent(Intent.ACTION_PICK, null);//返回被选中项的URI
