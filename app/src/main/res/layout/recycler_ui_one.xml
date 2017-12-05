@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:padding="@dimen/dp1"
+    android:background="@color/gray_01">
 <TextView
     android:id="@+id/recycler_ui_item_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dp5"
+android:background="@color/colorWhitle"
     android:gravity="center"
     />
 </LinearLayout>

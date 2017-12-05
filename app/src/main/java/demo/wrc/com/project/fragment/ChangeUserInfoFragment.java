@@ -33,6 +33,7 @@ public class ChangeUserInfoFragment extends BaseFragment {
     //(/sdcard/  目录怎么感觉跟Environment.getExternalStorageDirectory()得到的目录是一个效果？)
     
     
+    
     @Override
     protected int getLayoutId() {
         

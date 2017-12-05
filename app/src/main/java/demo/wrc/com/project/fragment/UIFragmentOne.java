@@ -1,17 +1,16 @@
 package demo.wrc.com.project.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import demo.wrc.com.project.R;
-import demo.wrc.com.project.adapter.RecyclerViewUIoneAdapter;
+import demo.wrc.com.project.adapter.RecyclerViewUIoneWaterfallsAdapter;
 import demo.wrc.com.project.base.BaseFragment;
-import demo.wrc.com.project.recycler.RecycleViewDivider;
 
 
 /**
@@ -50,13 +49,26 @@ public class UIFragmentOne extends BaseFragment {
 //        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        mRecyclerView.addItemDecoration(new RecycleViewDivider(
 //                getActivity(),  LinearLayoutManager.HORIZONTAL, R.drawable.divider_bg));
-        
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(
-                getActivity(),  LinearLayoutManager.HORIZONTAL, R.drawable.divider_bg));
+    
+        final StaggeredGridLayoutManager staggeredGridLayoutManager =new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
+//        mRecyclerView.addItemDecoration(new RecycleViewDivider(
+//                getActivity(),  LinearLayoutManager.HORIZONTAL, R.drawable.divider_bg));
 //        mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
     
     
-        mRecyclerView.setAdapter(new RecyclerViewUIoneAdapter(UIFragmentOne.this, testData()));
+        mRecyclerView.setAdapter(new RecyclerViewUIoneWaterfallsAdapter(UIFragmentOne.this, testData()));
+        
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+    
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        
+                super.onScrollStateChanged(recyclerView, newState);
+//                staggeredGridLayoutManager.invalidateSpanAssignments();//避免上下滑动时出现错位
+            }
+        });
+        
     }
     protected List<String> testData() {
         
