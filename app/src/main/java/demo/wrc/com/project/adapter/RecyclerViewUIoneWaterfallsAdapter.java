@@ -37,8 +37,19 @@ public class RecyclerViewUIoneWaterfallsAdapter extends RecyclerView.Adapter<Rec
       
         return viewHolder;
     }
-    
-    
+    //添加数据
+    public void addItem(int position, String data) {
+        list.add(position, data);
+        notifyItemInserted(position);//通知演示插入动画
+        notifyItemRangeChanged(position,list.size()-position);//通知数据与界面重新绑定
+    }
+    // 删除数据
+    public void removeData(int position) {
+        list.remove(position);
+        //删除动画
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(AbViewHolder holder, int position) {
       

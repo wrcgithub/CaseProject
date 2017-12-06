@@ -3,4 +3,5 @@
     <string name="dialog_onfirm">确认</string>
     <string name="dialog_msg">提示信息</string>
     <string name="user_info_name">姓名：</string>
+    <string name="dialog_cancel_text">取消</string>
 </resources>

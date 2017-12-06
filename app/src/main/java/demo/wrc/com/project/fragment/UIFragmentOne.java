@@ -11,6 +11,9 @@ import java.util.List;
 import demo.wrc.com.project.R;
 import demo.wrc.com.project.adapter.RecyclerViewUIoneWaterfallsAdapter;
 import demo.wrc.com.project.base.BaseFragment;
+import demo.wrc.com.project.callback.OnClickDialogChoice;
+import demo.wrc.com.project.listener.ItemClickSupport;
+import demo.wrc.com.project.popup.CustomDialogUtil;
 
 
 /**
@@ -21,6 +24,8 @@ public class UIFragmentOne extends BaseFragment {
     
     private RecyclerView mRecyclerView;
     
+    private  List<String> mDatas;
+    private RecyclerViewUIoneWaterfallsAdapter adapter;
     
     @Override
     protected int getLayoutId() {
@@ -40,6 +45,8 @@ public class UIFragmentOne extends BaseFragment {
     
     @Override
     protected void initData() {
+        testData();
+        adapter = new RecyclerViewUIoneWaterfallsAdapter(UIFragmentOne.this, mDatas);
 //        //listView 样式
 //        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        mRecyclerView.addItemDecoration(new RecycleViewDivider(
@@ -57,7 +64,7 @@ public class UIFragmentOne extends BaseFragment {
 //        mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
     
     
-        mRecyclerView.setAdapter(new RecyclerViewUIoneWaterfallsAdapter(UIFragmentOne.this, testData()));
+        mRecyclerView.setAdapter(adapter);
         
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
     
@@ -68,11 +75,54 @@ public class UIFragmentOne extends BaseFragment {
 //                staggeredGridLayoutManager.invalidateSpanAssignments();//避免上下滑动时出现错位
             }
         });
+        ItemClickSupport.addTo(mRecyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+    
+            @Override
+            public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
+    
+                CustomDialogUtil.showDialogChoice(getActivity(), true, "是否删除" + mDatas.get(position), new OnClickDialogChoice() {
+    
+                    @Override
+                    public void confirm(boolean flag, String msg) {
+                        adapter.removeData(position);
+                    }
+    
+    
+                    @Override
+                    public void cancel(String errMsg) {
+        
+                    }
+                });
+                return false;
+            }
+        }).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+    
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, final int position, View v) {
+                CustomDialogUtil.showDialogChoice(getActivity(), true, "是否添加 AA" + mDatas.get(position), new OnClickDialogChoice() {
+        
+                    @Override
+                    public void confirm(boolean flag, String msg) {
+                        adapter.addItem(position,"AA"+position);
+                    }
+        
+        
+                    @Override
+                    public void cancel(String errMsg) {
+            
+                    }
+                });
+            }
+        });
+        
+        
         
     }
+    
+    
     protected List<String> testData() {
         
-        List<String> mDatas = new ArrayList<String>();
+        mDatas = new ArrayList<String>();
         for (int i = 'A'; i < 'z'; i++){
             mDatas.add("" + (char) i);
         }

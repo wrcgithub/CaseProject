@@ -66,5 +66,32 @@ public class CustomDialogUtil {
         ;
         
     }
-    
+    public static void showDialogChoice(Context context, final boolean flag,  final String msg , final OnClickDialogChoice linstener) {
+        if (context == null){
+            return;
+        }
+        dailog = new CustomDialog.Builder(context).outSideCancel(false).view(R.layout.dialog_choice)
+                .widthDimenRes(R.dimen.dp300).heightDinmenRes(R.dimen.dp200).style(R.style.Dialog).addViewonclick(R.id.dialog_btn_confirm, new View.OnClickListener() {
+                    
+                    @Override
+                    public void onClick(View v) {
+                        linstener.confirm(flag,msg);
+                        dailog.dismiss();
+                    }
+                })
+                .addViewonclick(R.id.dialog_btn_cancel, new View.OnClickListener() {
+                    
+                    @Override
+                    public void onClick(View v) {
+                        linstener.cancel(msg);
+                        dailog.dismiss();
+                    }
+                })
+                .setText(R.id.dialog_one_text,msg)
+                .build();
+        
+        dailog.show();
+        ;
+        
+    }
 }

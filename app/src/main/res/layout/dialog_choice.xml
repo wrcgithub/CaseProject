@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp330"
+    android:layout_height="@dimen/dp250"
+    android:background="@color/colorWhitle"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/dialog_one_text"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_msg"
+        android:background="@color/transparent"
+        />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <Button
+        android:id="@+id/dialog_btn_cancel"
+        android:layout_marginTop="20dp"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:textColor="@color/gray_02"
+        android:text="@string/dialog_cancel_text"
+        android:background="@color/transparent"
+        />
+    <Button
+        android:id="@+id/dialog_btn_confirm"
+        android:layout_marginTop="20dp"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:textColor="@color/blue_01"
+        android:text="@string/dialog_onfirm"
+        android:background="@color/transparent"
+        />
+
+</LinearLayout>
+
+</LinearLayout>
