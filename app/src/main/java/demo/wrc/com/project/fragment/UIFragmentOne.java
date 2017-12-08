@@ -1,8 +1,8 @@
 package demo.wrc.com.project.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -13,7 +13,10 @@ import demo.wrc.com.project.adapter.RecyclerViewUIoneWaterfallsAdapter;
 import demo.wrc.com.project.base.BaseFragment;
 import demo.wrc.com.project.callback.OnClickDialogChoice;
 import demo.wrc.com.project.listener.ItemClickSupport;
+import demo.wrc.com.project.model.TestInfo;
 import demo.wrc.com.project.popup.CustomDialogUtil;
+import demo.wrc.com.project.recycler.RecycleViewDivider;
+import demo.wrc.com.project.utils.ToastUtil;
 
 
 /**
@@ -24,7 +27,7 @@ public class UIFragmentOne extends BaseFragment {
     
     private RecyclerView mRecyclerView;
     
-    private  List<String> mDatas;
+    private  List<TestInfo> listTest;
     private RecyclerViewUIoneWaterfallsAdapter adapter;
     
     @Override
@@ -46,19 +49,22 @@ public class UIFragmentOne extends BaseFragment {
     @Override
     protected void initData() {
         testData();
-        adapter = new RecyclerViewUIoneWaterfallsAdapter(UIFragmentOne.this, mDatas);
-//        //listView 样式
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mRecyclerView.addItemDecoration(new RecycleViewDivider(
-//                getActivity(), LinearLayoutManager.HORIZONTAL, 3, getResources().getColor(R.color.gray_01)));
+        adapter = new RecyclerViewUIoneWaterfallsAdapter(UIFragmentOne.this, listTest);
+        //listView 样式
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(
+                getActivity(), LinearLayoutManager.HORIZONTAL, 3, getResources().getColor(R.color.gray_01)));
 
 //         //同上 listView 样式
 //        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        mRecyclerView.addItemDecoration(new RecycleViewDivider(
 //                getActivity(),  LinearLayoutManager.HORIZONTAL, R.drawable.divider_bg));
     
-        final StaggeredGridLayoutManager staggeredGridLayoutManager =new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
+//        //瀑布流
+//        final StaggeredGridLayoutManager staggeredGridLayoutManager =new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+//        mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
+        
+        
 //        mRecyclerView.addItemDecoration(new RecycleViewDivider(
 //                getActivity(),  LinearLayoutManager.HORIZONTAL, R.drawable.divider_bg));
 //        mRecyclerView.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
@@ -80,11 +86,23 @@ public class UIFragmentOne extends BaseFragment {
             @Override
             public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
     
-                CustomDialogUtil.showDialogChoice(getActivity(), true, "是否删除" + mDatas.get(position), new OnClickDialogChoice() {
+                CustomDialogUtil.showDialogChoice(getActivity(), true, "查看选中的Item" + listTest.get(position).getName(), new OnClickDialogChoice() {
     
                     @Override
                     public void confirm(boolean flag, String msg) {
-                        adapter.removeData(position);
+    
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < listTest.size(); i++){
+                            if (listTest.get(i).isTrue()){
+                                sb.append(listTest.get(i).getName()+" ");
+                            }
+                        }
+                        
+                        
+                        
+                        
+                        ToastUtil.toast("选中的Item："+sb.toString());
+//                        adapter.removeData(position);//删除所选项
                     }
     
     
@@ -99,11 +117,11 @@ public class UIFragmentOne extends BaseFragment {
     
             @Override
             public void onItemClicked(RecyclerView recyclerView, final int position, View v) {
-                CustomDialogUtil.showDialogChoice(getActivity(), true, "是否添加 AA" + mDatas.get(position), new OnClickDialogChoice() {
+                CustomDialogUtil.showDialogChoice(getActivity(), true, "是否添加 AA" + listTest.get(position).getName(), new OnClickDialogChoice() {
         
                     @Override
                     public void confirm(boolean flag, String msg) {
-                        adapter.addItem(position,"AA"+position);
+//                        adapter.addItem(position,"AA"+position);//添加一个Item
                     }
         
         
@@ -120,13 +138,16 @@ public class UIFragmentOne extends BaseFragment {
     }
     
     
-    protected List<String> testData() {
-        
-        mDatas = new ArrayList<String>();
+    protected List<TestInfo> testData() {
+    
+        listTest = new ArrayList<TestInfo>();
         for (int i = 'A'; i < 'z'; i++){
-            mDatas.add("" + (char) i);
+            TestInfo info = new TestInfo();
+            info.setName(""+(char)i);
+            info.setTrue(false);
+            listTest.add(info);
         }
-        return mDatas;
+        return listTest;
     }
     
     
