@@ -14,7 +14,7 @@ import demo.wrc.com.project.base.BaseFragment;
 import demo.wrc.com.project.callback.OnClickDialogChoice;
 import demo.wrc.com.project.listener.ItemClickSupport;
 import demo.wrc.com.project.model.TestInfo;
-import demo.wrc.com.project.popup.CustomDialogUtil;
+import demo.wrc.com.project.popup.DialogCustomUtil;
 import demo.wrc.com.project.recycler.RecycleViewDivider;
 import demo.wrc.com.project.utils.ToastUtil;
 
@@ -86,7 +86,7 @@ public class UIFragmentOne extends BaseFragment {
             @Override
             public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
     
-                CustomDialogUtil.showDialogChoice(getActivity(), true, "查看选中的Item" + listTest.get(position).getName(), new OnClickDialogChoice() {
+                DialogCustomUtil.showDialogChoice(getActivity(), true, "查看选中的Item" + listTest.get(position).getName(), new OnClickDialogChoice() {
     
                     @Override
                     public void confirm(boolean flag, String msg) {
@@ -117,7 +117,7 @@ public class UIFragmentOne extends BaseFragment {
     
             @Override
             public void onItemClicked(RecyclerView recyclerView, final int position, View v) {
-                CustomDialogUtil.showDialogChoice(getActivity(), true, "是否添加 AA" + listTest.get(position).getName(), new OnClickDialogChoice() {
+                DialogCustomUtil.showDialogChoice(getActivity(), true, "是否添加 AA" + listTest.get(position).getName(), new OnClickDialogChoice() {
         
                     @Override
                     public void confirm(boolean flag, String msg) {

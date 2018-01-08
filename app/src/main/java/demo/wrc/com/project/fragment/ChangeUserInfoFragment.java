@@ -18,7 +18,7 @@ import demo.wrc.com.project.R;
 import demo.wrc.com.project.base.BaseFragment;
 import demo.wrc.com.project.callback.OnClickDialogTwoImg;
 import demo.wrc.com.project.custemview.CircleImageView;
-import demo.wrc.com.project.popup.CustomDialogUtil;
+import demo.wrc.com.project.popup.DialogCustomUtil;
 
 
 /**
@@ -60,7 +60,7 @@ public class ChangeUserInfoFragment extends BaseFragment {
         
         switch (v.getId()) {
             case R.id.userinfo_set_img:
-//                CustomDialogUtil.showDialogConfirmImg(getActivity(), true, "进入相册", new OnClickDialogChoice() {
+//                DialogCustomUtil.showDialogConfirmImg(getActivity(), true, "进入相册", new OnClickDialogChoice() {
 //
 //                    @Override
 //                    public void confirm(boolean flag, String msg) {
@@ -74,7 +74,7 @@ public class ChangeUserInfoFragment extends BaseFragment {
 //                    }
 //                });
     
-                CustomDialogUtil.showDialogTwoImg(getActivity(), false, "相册", "拍照", "头像获取方式", R.mipmap.dialog_default01, R.mipmap.dialog_default01, new OnClickDialogTwoImg() {
+                DialogCustomUtil.showDialogTwoImg(getActivity(), false, "相册", "拍照", "头像获取方式", R.mipmap.dialog_default01, R.mipmap.dialog_default01, new OnClickDialogTwoImg() {
     
                     @Override
                     public void leftImage(int ret, String msg) {

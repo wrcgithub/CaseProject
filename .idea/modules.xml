@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CaseDemoProject.iml" filepath="$PROJECT_DIR$/CaseDemoProject.iml" />
       <module fileurl="file://E:\AS\ASworkpace\CaseProject\CaseDemoProject.iml" filepath="E:\AS\ASworkpace\CaseProject\CaseDemoProject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CaseProject.iml" filepath="$PROJECT_DIR$/CaseProject.iml" />
       <module fileurl="file://D:\Android\workspace\CaseDemoProject\CaseProject.iml" filepath="D:\Android\workspace\CaseDemoProject\CaseProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

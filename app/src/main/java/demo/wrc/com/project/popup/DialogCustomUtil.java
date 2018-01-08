@@ -12,7 +12,7 @@ import demo.wrc.com.project.callback.OnClickDialogTwoImg;
  * Created by wrc on 2017/11/30/030.
  */
 
-public class CustomDialogUtil {
+public class DialogCustomUtil {
     
     public static CustomDialog dailog;
     

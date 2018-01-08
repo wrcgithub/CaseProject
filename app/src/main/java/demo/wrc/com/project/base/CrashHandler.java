@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import demo.wrc.com.project.callback.OnClickDialogChoice;
-import demo.wrc.com.project.popup.CustomDialogUtil;
+import demo.wrc.com.project.popup.DialogCustomUtil;
 import demo.wrc.com.project.utils.ByteUtil;
 import demo.wrc.com.project.utils.ToastUtil;
 
@@ -100,7 +100,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 					return;
 				}
 				
-			CustomDialogUtil.showDialogConfirmImg(context, true, info.toString(), new OnClickDialogChoice() {
+			DialogCustomUtil.showDialogConfirmImg(context, true, info.toString(), new OnClickDialogChoice() {
 
                     @Override
                     public void confirm(boolean flag, String msg) {
@@ -238,10 +238,11 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 	private String makeCrashInfo(Map<String,String> pkgInfo, Throwable ex) {
 		StringBuffer info = new StringBuffer();
 		for (Map.Entry<String, String> entry : pkgInfo.entrySet()) {
-			info.append(entry.getKey())
+			if (entry.getKey().equals("versionName") ||entry.getKey().equals("DISPLAY") ||entry.getKey().equals("MODEL")  )
+			{info.append(entry.getKey())
 					.append(" = ")
 					.append(entry.getValue())
-					.append("\n");
+					.append("\n");}
 		}
 		info.append("--------------------------------------------------------------------------------\n");
 		Writer stack = new StringWriter();

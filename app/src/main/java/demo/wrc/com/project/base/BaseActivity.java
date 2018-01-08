@@ -43,7 +43,7 @@ public   class BaseActivity extends AppCompatActivity  {
 		fragmentManager = getFragmentManager();
 		fullScreen(this);
 		BaseApplication.getInstance().addActivity(this);
-
+		
 	}
 
 	@Override
