@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Map;
 
 import demo.wrc.com.project.R;
 import demo.wrc.com.project.base.BaseFragment;
@@ -17,12 +16,12 @@ import demo.wrc.com.project.base.BaseFragment;
  * Created by wrc_urovo on 2017/12/5/005.
  */
 
-public class RecyclerViewUIoneAdapter extends RecyclerView.Adapter<RecyclerViewUIoneAdapter.AbViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.AbViewHolder> {
     
-    private List<Map<String ,Class>> list ;
+    private List<String> list ;
     private BaseFragment fragment;
     
-  public   RecyclerViewUIoneAdapter(BaseFragment fragment,List<Map<String ,Class>> list){
+  public RecyclerViewAdapter(BaseFragment fragment, List<String> list){
     this.list = list;
     this.fragment = fragment;
     
@@ -32,7 +31,7 @@ public class RecyclerViewUIoneAdapter extends RecyclerView.Adapter<RecyclerViewU
     @Override
     public AbViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         
-      AbViewHolder viewHolder = new AbViewHolder(LayoutInflater.from(fragment.getActivity()).inflate(R.layout.recycler_item,parent,false));
+      AbViewHolder viewHolder = new AbViewHolder(LayoutInflater.from(fragment.getActivity()).inflate(R.layout.recycler_ui_one,parent,false));
       
         return viewHolder;
     }
@@ -40,7 +39,7 @@ public class RecyclerViewUIoneAdapter extends RecyclerView.Adapter<RecyclerViewU
     
     @Override
     public void onBindViewHolder(AbViewHolder holder, int position) {
-    holder.textView.setText(list.get(position).keySet()+"");
+    holder.textView.setText(list.get(position));
     }
     
     

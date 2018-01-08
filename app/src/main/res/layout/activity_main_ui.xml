@@ -5,15 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="demo.wrc.com.project.base.MainActivity">
-<TextView
-    android:id="@+id/main_http_toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dp50"
-    android:text="蓝空遐想"
-    android:gravity="center"
-    android:textColor="@color/colorAccent"
-    android:background="?attr/colorPrimary"
-    ></TextView>
+    <include layout="@layout/title_bar"
+        android:visibility="gone"
+        ></include>
+
+
+    <FrameLayout
+        android:id="@+id/frament_container_main_ui"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar"
+        />
+
 
 
 </RelativeLayout>

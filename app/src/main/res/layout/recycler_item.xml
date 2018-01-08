@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/recycler_ui_one_item"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/gray_01"
+              android:padding="@dimen/dp1"
+              android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/recycler_ui_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp50"
+        android:gravity="center"
+        />
+</LinearLayout>

@@ -21,14 +21,14 @@ import demo.wrc.com.project.model.TestInfo;
  * Created by wrc_urovo on 2017/12/5/005.
  */
 
-public class RecyclerViewUIoneWaterfallsAdapter extends RecyclerView.Adapter<RecyclerViewUIoneWaterfallsAdapter.AbViewHolder> {
+public class RecyclerViewWaterfallsAdapter extends RecyclerView.Adapter<RecyclerViewWaterfallsAdapter.AbViewHolder> {
     
     private List<TestInfo> list;
     private BaseFragment fragment;
     private List<Integer> mHeight;
     
     
-    public RecyclerViewUIoneWaterfallsAdapter(BaseFragment fragment, List<TestInfo> list) {
+    public RecyclerViewWaterfallsAdapter(BaseFragment fragment, List<TestInfo> list) {
         
         this.list = list;
         this.fragment = fragment;

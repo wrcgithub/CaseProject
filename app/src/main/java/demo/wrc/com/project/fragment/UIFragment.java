@@ -1,13 +1,16 @@
 package demo.wrc.com.project.fragment;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +38,44 @@ public class UIFragment extends BaseFragment {
 
         return R.layout.fragment_main_ui;
     }
-
+    /**
+     * 保存gps信息
+     */
+    private void dbStore() {
+        
+            long degree = 6;
+            String degreeStr = "###.";
+            for (int i = 0; i < degree; ++i) {
+                degreeStr += "0";
+            }
+            DecimalFormat df = new DecimalFormat(degreeStr);
+            String Latitude = "" + df.format(convertGps(27.82626d));
+            String Longidute = "" + df.format(convertGps(121.13181d));
+            
+                Log.d("wrc", "GPS信息："  + Latitude +","+Longidute);
+            
+    }
+    /**
+     * 将经纬度转换成京东需要的数据（京东后台地图需要的数据与真实gps数据有偏差）
+     * @param value 经纬度
+     * @return
+     */
+    public static double convertGps(double value) {
+        
+        double result = 0;
+        
+        String[] degreeArr = Location.convert(value, Location.FORMAT_SECONDS).split(":");
+        
+        if (degreeArr.length == 3) {
+            
+            double degree = Double.parseDouble(degreeArr[0]);
+            double minute = Double.parseDouble(degreeArr[1]);
+            double second = Double.parseDouble(degreeArr[2]);
+            
+            result = degree + minute / 100 + second / 60 / 100;
+        }
+        return result;
+    }
 
     @Override
     protected void initView(final View view, Bundle savedInstanceState) {
@@ -60,10 +100,10 @@ public class UIFragment extends BaseFragment {
         mViewPager.setAdapter(new TabLayoutViewPagerAdapter(getFragmentManager(),listFragment));
         mViewPager.setCurrentItem(0);
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.getTabAt(0).setText("第一回");
+        mTabLayout.getTabAt(0).setText("系统自带效果");
         mTabLayout.getTabAt(1).setText("第二回");
         mTabLayout.getTabAt(2).setText("第三回");
-        
+        dbStore();
 //        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 //
 //            @Override

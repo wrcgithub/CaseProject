@@ -90,7 +90,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
 
     /**
-     * fragment管理方法
+     * 主界面fragment管理方法
      */
     public void fragmentManager(int fl_resid, Class fclass){
         Activity activity = getActivity();
@@ -99,5 +99,14 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             baseActivity.fragmentManager(fl_resid, fclass);
         }
     }
-
+    /**
+     * fragment管理方法
+     */
+    public void addMultipleFragments(int fl_resid, Class fclass){
+        Activity activity = getActivity();
+        if(activity instanceof BaseActivity){
+            BaseActivity baseActivity = (BaseActivity) activity;
+            baseActivity.fragmentManager(fl_resid, fclass);
+        }
+    }
 }

@@ -1,20 +1,23 @@
 package demo.wrc.com.project.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import demo.wrc.com.project.R;
-import demo.wrc.com.project.adapter.RecyclerViewUIoneWaterfallsAdapter;
+import demo.wrc.com.project.activity.ActivityUI;
+import demo.wrc.com.project.adapter.RecyclerViewUIoneAdapter;
 import demo.wrc.com.project.base.BaseFragment;
-import demo.wrc.com.project.callback.OnClickDialogChoice;
+import demo.wrc.com.project.fragment.ui_material_design.RecyclerFragment;
+import demo.wrc.com.project.fragment.ui_material_design.TranslucentScrollToolbarAndPaletteFragment;
 import demo.wrc.com.project.listener.ItemClickSupport;
-import demo.wrc.com.project.model.TestInfo;
-import demo.wrc.com.project.popup.DialogCustomUtil;
 import demo.wrc.com.project.recycler.RecycleViewDivider;
 import demo.wrc.com.project.utils.ToastUtil;
 
@@ -27,8 +30,8 @@ public class UIFragmentOne extends BaseFragment {
     
     private RecyclerView mRecyclerView;
     
-    private  List<TestInfo> listTest;
-    private RecyclerViewUIoneWaterfallsAdapter adapter;
+    private  List<Map<String ,Class>> listTest;
+    private RecyclerViewUIoneAdapter adapter;
     
     @Override
     protected int getLayoutId() {
@@ -49,7 +52,7 @@ public class UIFragmentOne extends BaseFragment {
     @Override
     protected void initData() {
         testData();
-        adapter = new RecyclerViewUIoneWaterfallsAdapter(UIFragmentOne.this, listTest);
+        adapter = new RecyclerViewUIoneAdapter(UIFragmentOne.this, listTest);
         //listView 样式
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(
@@ -86,50 +89,19 @@ public class UIFragmentOne extends BaseFragment {
             @Override
             public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
     
-                DialogCustomUtil.showDialogChoice(getActivity(), true, "查看选中的Item" + listTest.get(position).getName(), new OnClickDialogChoice() {
-    
-                    @Override
-                    public void confirm(boolean flag, String msg) {
-    
-                        StringBuilder sb = new StringBuilder();
-                        for (int i = 0; i < listTest.size(); i++){
-                            if (listTest.get(i).isTrue()){
-                                sb.append(listTest.get(i).getName()+" ");
-                            }
-                        }
-                        
-                        
-                        
-                        
-                        ToastUtil.toast("选中的Item："+sb.toString());
-//                        adapter.removeData(position);//删除所选项
-                    }
-    
-    
-                    @Override
-                    public void cancel(String errMsg) {
-        
-                    }
-                });
+                
+                ToastUtil.toast("选中的Item："+listTest.get(position).keySet().toString());
                 return false;
             }
         }).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
     
             @Override
             public void onItemClicked(RecyclerView recyclerView, final int position, View v) {
-                DialogCustomUtil.showDialogChoice(getActivity(), true, "是否添加 AA" + listTest.get(position).getName(), new OnClickDialogChoice() {
-        
-                    @Override
-                    public void confirm(boolean flag, String msg) {
-//                        adapter.addItem(position,"AA"+position);//添加一个Item
-                    }
-        
-        
-                    @Override
-                    public void cancel(String errMsg) {
-            
-                    }
-                });
+    
+                Intent intent = new Intent(getActivity(), ActivityUI.class);
+                intent.putExtra("fragment",listTest.get(position).get(listTest.get(position).keySet().toString().replace("[","").replace("]","")));
+                startActivity(intent);
+//                addMultipleFragments(R.id.frament_container_main,listTest.get(position).get(listTest.get(position).keySet().toString().replace("[","").replace("]","")));
             }
         });
         
@@ -138,21 +110,20 @@ public class UIFragmentOne extends BaseFragment {
     }
     
     
-    protected List<TestInfo> testData() {
+    protected List<Map<String ,Class>> testData() {
     
-        listTest = new ArrayList<TestInfo>();
-        for (int i = 'A'; i < 'z'; i++){
-            TestInfo info = new TestInfo();
-            info.setName(""+(char)i);
-            info.setTrue(false);
-            listTest.add(info);
-        }
+        listTest = new ArrayList<Map<String ,Class>>();
+        Map<String ,Class> map1  = new HashMap<>();
+        map1.put("RecyclerView",RecyclerFragment.class);
+        listTest.add(map1);
+        Map<String ,Class> map2  = new HashMap<>();
+        map2.put("palette",TranslucentScrollToolbarAndPaletteFragment.class);
+        listTest.add(map2);
         return listTest;
     }
     
     
     @Override
     public void onClick(View v) {
-    
     }
 }
