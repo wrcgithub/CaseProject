@@ -120,7 +120,7 @@ public class BaseActivity extends AppCompatActivity {
      * 2.设置中间TextView显示的文字
      * 3.设置右边的图片按钮显示，并设置事件
      */
-    protected void initTitle(String title) {
+    public void initTitle(String title) {
         
         new TitleBar(this).setMiddleTitleText(title);
         
@@ -260,8 +260,8 @@ public class BaseActivity extends AppCompatActivity {
      * fragment管理 -- 不包含过程动画的方式
      */
     public void addMultipleFragments(int fl_resid, Class fclass) {
-        
-        fragmentManager(fl_resid, 0, 0, fclass);
+    
+        addMultipleFragments(fl_resid, 0, 0, fclass);
     }
     /**
      * 包含动画的fragment管理
@@ -277,7 +277,8 @@ public class BaseActivity extends AppCompatActivity {
         if (inanim != 0 || outanim != 0) {
             fragmentTransaction.setCustomAnimations(inanim, outanim);
         }
-        BaseFragment fragment = (BaseFragment) fragmentManager.findFragmentByTag(fragmentMap.get(fclass.getName()));
+//        BaseFragment fragment = (BaseFragment) fragmentManager.findFragmentByTag(fclass.getName());
+        BaseFragment fragment = BaseFragment.getInstance(fclass);
         fragmentTransaction.replace(fl_resid, fragment);
 //		fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commit();

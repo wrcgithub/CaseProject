@@ -44,6 +44,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initData();
+       
     }
 
     /**
@@ -63,6 +64,14 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
      * 执行加载数据
      */
     protected abstract void initData();
+    
+    /**
+     * 设置Title
+     */
+    protected  void initTitle(String title){
+        BaseActivity baseActivity = (BaseActivity ) getActivity();
+        baseActivity.initTitle(title);
+    }
 
 
     /**

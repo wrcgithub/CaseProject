@@ -16,6 +16,7 @@ import demo.wrc.com.project.activity.ActivityUI;
 import demo.wrc.com.project.adapter.RecyclerViewUIoneAdapter;
 import demo.wrc.com.project.base.BaseFragment;
 import demo.wrc.com.project.fragment.ui_material_design.RecyclerFragment;
+import demo.wrc.com.project.fragment.ui_material_design.TableLayoutFragment;
 import demo.wrc.com.project.fragment.ui_material_design.TranslucentScrollToolbarAndPaletteFragment;
 import demo.wrc.com.project.listener.ItemClickSupport;
 import demo.wrc.com.project.recycler.RecycleViewDivider;
@@ -119,6 +120,9 @@ public class UIFragmentOne extends BaseFragment {
         Map<String ,Class> map2  = new HashMap<>();
         map2.put("palette",TranslucentScrollToolbarAndPaletteFragment.class);
         listTest.add(map2);
+        Map<String ,Class> map3  = new HashMap<>();
+        map3.put("tablayout",TableLayoutFragment.class);
+        listTest.add(map3);
         return listTest;
     }
     

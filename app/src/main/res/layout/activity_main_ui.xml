@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="demo.wrc.com.project.base.MainActivity">
     <include layout="@layout/title_bar"
-        android:visibility="gone"
         ></include>
 
 

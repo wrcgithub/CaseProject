@@ -32,6 +32,7 @@ public class TranslucentScrollToolbarAndPaletteFragment extends BaseFragment imp
     
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
+        initTitle("Translucent_Palette");
         toolbar = (TextView) view.findViewById(R.id.main_http_toolbar);
         scrollView = (MyScrollView) view.findViewById(R.id.main_http_scrollview);
         scrollView.setTranslucentListener(this);
