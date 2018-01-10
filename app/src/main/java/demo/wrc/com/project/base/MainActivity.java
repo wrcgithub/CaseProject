@@ -2,6 +2,7 @@ package demo.wrc.com.project.base;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,17 +20,21 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     
     private RadioGroup radioGroup;
     private RadioButton rb_ui;
-    
+    private Toolbar toolbar;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initTitle("首页导航");
+        toolbar= (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        
+        initToolBar("Android","主界面",R.color.colorAccent);
         initView();
         
     }
+    
     
     
     @Override
@@ -57,6 +62,29 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    
+    
+    @Override
+    public void initToolBar(String title, String subTitle, int titleColor) {
+        if (title == null){
+            title ="";
+        }
+        if (subTitle == null){
+            subTitle = "";
+        }
+        if (titleColor == 0){
+            titleColor = R.color.colorPrimary;
+        }
+        getSupportActionBar().setTitle(title);
+        toolbar.setSubtitle(subTitle);
+        toolbar.setTitleTextColor(titleColor);
+    }
+    
+    
+    @Override
+    public Toolbar getToolBar() {
+    return toolbar;
     }
     
     

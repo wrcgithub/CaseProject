@@ -39,7 +39,7 @@ public class TableLayoutFragment extends BaseFragment {
     
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        initTitle("TabLayout");
+        initToolBar("UI篇","TabLayout",0);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.vp);
         tabLayout = (TabLayout)view.findViewById(R.id.tablayout);
         MyPagerAdapter adapter = new MyPagerAdapter(getFragmentManager());

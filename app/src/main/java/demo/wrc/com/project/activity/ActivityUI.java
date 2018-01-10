@@ -1,6 +1,7 @@
 package demo.wrc.com.project.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 
 import demo.wrc.com.project.R;
@@ -14,11 +15,14 @@ import demo.wrc.com.project.base.BaseFragment;
 
 public class ActivityUI extends BaseActivity {
     private Class<BaseFragment> calss ;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_ui);
-        initTitle("功能详情界面");
+        toolbar= (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        initToolBar("UI篇","",R.color.colorAccent);
         initView();
     }
     
@@ -43,5 +47,29 @@ public class ActivityUI extends BaseActivity {
 //            return true;
 //        }
         return super.onKeyDown(keyCode, event);
+    }
+    
+    
+    @Override
+    public void initToolBar(String title, String subTitle, int titleColor) {
+        if (title == null){
+            title ="";
+        }
+        if (subTitle == null){
+            subTitle = "";
+        }
+        if (titleColor == 0){
+            titleColor = R.color.colorPrimary;
+        }
+        getSupportActionBar().setTitle(title);
+        toolbar.setSubtitle(subTitle);
+        toolbar.setTitleTextColor(titleColor);
+    }
+    
+    
+    @Override
+    public Toolbar getToolBar() {
+        
+        return  toolbar;
     }
 }

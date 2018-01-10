@@ -40,7 +40,7 @@ public class RecyclerFragment extends BaseFragment {
         
         @Override
         protected void initView(View view, Bundle savedInstanceState) {
-        initTitle("Recycler");
+        initToolBar("UI篇","Recycler",0);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_ui_one);
         
         

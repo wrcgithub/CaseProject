@@ -3,6 +3,7 @@ package demo.wrc.com.project.fragment.ui_material_design;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +33,11 @@ public class TabLayoutDetailFragment extends BaseFragment{
         String title = bundle.getString("title");
         tv.setBackgroundColor(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
         tv.setText(title);
+        tv.setGravity(Gravity.CENTER);
         return tv;
     }
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        initTitle("TabLayoutDetail");
     }
     
     

@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment implements View.OnClickListener {
 
     protected Activity mActivity;
+    protected Toolbar toolbar;
 
     /**
      * 获得全局 防止使用getActivity()为空
@@ -68,11 +70,19 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     /**
      * 设置Title
      */
-    protected  void initTitle(String title){
+    protected  void initToolBar(String title,String subTitle,int titleColor){
         BaseActivity baseActivity = (BaseActivity ) getActivity();
-        baseActivity.initTitle(title);
+        baseActivity.initToolBar(title,subTitle,titleColor);
     }
-
+    
+    
+    /**
+     * 获取TooBar
+     */
+    protected  void getToolBar(){
+        BaseActivity baseActivity = (BaseActivity ) getActivity();
+        toolbar = baseActivity.getToolBar();
+    }
 
     /**
      * 静态工厂方法

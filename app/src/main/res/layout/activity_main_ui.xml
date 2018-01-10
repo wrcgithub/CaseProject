@@ -5,8 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="demo.wrc.com.project.base.MainActivity">
-    <include layout="@layout/title_bar"
-        ></include>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        title="功能模块"
+        titleTextColor="#ff0"
+        popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        />
 
 
     <FrameLayout
@@ -14,7 +21,6 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_bar"
         />
 
 

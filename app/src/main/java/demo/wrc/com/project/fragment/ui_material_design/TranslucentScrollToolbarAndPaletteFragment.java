@@ -20,7 +20,7 @@ import demo.wrc.com.project.view.MyScrollView;
  */
 
 public class TranslucentScrollToolbarAndPaletteFragment extends BaseFragment implements TranslucentListener{
-    private TextView toolbar,textView00,textView01;
+    private TextView textView00,textView01;
     private MyScrollView scrollView;
     private ImageView imageView;
     @Override
@@ -32,8 +32,8 @@ public class TranslucentScrollToolbarAndPaletteFragment extends BaseFragment imp
     
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        initTitle("Translucent_Palette");
-        toolbar = (TextView) view.findViewById(R.id.main_http_toolbar);
+        getToolBar();
+        initToolBar("UI篇","Translucent_Palette",0);
         scrollView = (MyScrollView) view.findViewById(R.id.main_http_scrollview);
         scrollView.setTranslucentListener(this);
         imageView = (ImageView) view.findViewById(R.id.imageview01);

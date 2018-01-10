@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="demo.wrc.com.project.base.MainActivity">
 <android.support.v4.view.ViewPager
     android:id="@+id/vp"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
+    android:layout_height="match_parent"
     android:layout_weight="1"></android.support.v4.view.ViewPager>
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
@@ -17,6 +18,7 @@
         tabIndicatorColor="@color/colorAccent"
         tabTextColor="@color/gray_02"
         tabSelectedTextColor="@color/colorAccent"
+        app:tabMode="scrollable"
         />
 
 </LinearLayout>

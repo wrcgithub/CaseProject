@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -160,6 +161,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 	 */
 	private boolean saveCrashInfo(String fileName, String crashInfo) {
 		String state = Environment.getExternalStorageState();
+		Log.e("crash",crashInfo);
 		if (!state.equals(Environment.MEDIA_MOUNTED)) {
 			return false;
 		}

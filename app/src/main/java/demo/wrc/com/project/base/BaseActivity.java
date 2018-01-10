@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -28,7 +28,7 @@ import demo.wrc.com.project.utils.TitleBar;
 import demo.wrc.com.project.utils.ToastUtil;
 
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends BaseTranslucentActivity {
     
     
     private FragmentManager fragmentManager;
@@ -42,10 +42,11 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //		initView();
 //		initData();
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         fragmentManager = getFragmentManager();
-        fullScreen(this);
+//        fullScreen(this);
         BaseApplication.getInstance().addActivity(this);
+        
         
     }
     
@@ -126,6 +127,19 @@ public class BaseActivity extends AppCompatActivity {
         
     }
     
+    
+    /**
+     *
+     * @param title  设置Toolbar的标题
+     * @param subTitle   设置Toolbar的下标题
+     * @param titleColor 设置Toolbar的标题字体颜色
+     */
+    public abstract void initToolBar(String title,String subTitle,int titleColor);
+    
+    /**
+     * 传递Toolbar
+     */
+    public abstract Toolbar getToolBar();
     
     public static void setHintTextSize(EditText editText, String hintText, int textSize) {
         // 新建一个可以添加属性的文本对象

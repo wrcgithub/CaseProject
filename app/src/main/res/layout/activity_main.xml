@@ -5,9 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="demo.wrc.com.project.base.MainActivity">
-    <include layout="@layout/title_bar"
-        android:visibility="gone"
-        ></include>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        title="功能模块"
+        titleTextColor="#ff0"
+        popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        >
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
@@ -15,15 +22,16 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:layout_above="@+id/rg_tab"
-        android:layout_below="@+id/title_bar" />
+        android:layout_below="@+id/toolbar" />
+
     <FrameLayout
         android:id="@+id/frament_container_main"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rg_tab"
-        android:layout_below="@+id/title_bar"
-        />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
 
 
     <RadioGroup
@@ -87,4 +95,13 @@
 
 
     </RadioGroup>
+    <View
+        android:id="@+id/nav"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="0"
+        android:layout_below="@id/rg_tab"
+        android:background="?attr/colorPrimary"
+        />
 </RelativeLayout>
