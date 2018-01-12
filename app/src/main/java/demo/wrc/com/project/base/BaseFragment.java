@@ -37,6 +37,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
         View view = LayoutInflater.from(getActivity())
                 .inflate(getLayoutId(), container, false);
+        getToolBar();
         initView(view, savedInstanceState);
     
         return view;

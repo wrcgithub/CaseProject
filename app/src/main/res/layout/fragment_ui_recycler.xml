@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="demo.wrc.com.project.base.MainActivity">
+    tools:context="demo.wrc.com.project.activity.ActivityUI">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/child_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        title="UI篇"
+        titleTextColor="#ff0"
+        subtitle="Recycler"
+        popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_ui_one"
         android:divider="#ffff0000"
         android:dividerHeight="10dp"
+        android:paddingTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/fab"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_margin="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/fab_bg"
+        android:src="@mipmap/ic_favorite_outline_white_24dp"
+        />
+</RelativeLayout>

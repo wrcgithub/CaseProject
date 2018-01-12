@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ public class TranslucentScrollToolbarAndPaletteFragment extends BaseFragment imp
     private TextView textView00,textView01;
     private MyScrollView scrollView;
     private ImageView imageView;
+    private Toolbar childToolBar;
     @Override
     protected int getLayoutId() {
         
@@ -31,9 +33,19 @@ public class TranslucentScrollToolbarAndPaletteFragment extends BaseFragment imp
     
     
     @Override
+    public void onResume() {
+        
+        super.onResume();
+        childToolBar.setTitle("UI篇");
+//        childToolBar.setTitleTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
+    }
+    
+    
+    @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        getToolBar();
-        initToolBar("UI篇","Translucent_Palette",0);
+//        initToolBar("UI篇","Translucent_Palette",0);
+        toolbar.setVisibility(View.GONE);
+        childToolBar = (Toolbar) view.findViewById(R.id.child_toolbar);
         scrollView = (MyScrollView) view.findViewById(R.id.main_http_scrollview);
         scrollView.setTranslucentListener(this);
         imageView = (ImageView) view.findViewById(R.id.imageview01);
@@ -113,6 +125,6 @@ public class TranslucentScrollToolbarAndPaletteFragment extends BaseFragment imp
     
     @Override
     public void onTranlucent(float alpha) {
-        toolbar.setAlpha(alpha);
+        childToolBar.setAlpha(alpha);
     }
 }

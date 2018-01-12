@@ -5,12 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="demo.wrc.com.project.base.MainActivity">
-<android.support.v4.view.ViewPager
-    android:id="@+id/vp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1"></android.support.v4.view.ViewPager>
+    tools:context="demo.wrc.com.project.activity.ActivityUI"
+    android:orientation="vertical">
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="fill_parent"
@@ -20,5 +17,9 @@
         tabSelectedTextColor="@color/colorAccent"
         app:tabMode="scrollable"
         />
-
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"></android.support.v4.view.ViewPager>
 </LinearLayout>

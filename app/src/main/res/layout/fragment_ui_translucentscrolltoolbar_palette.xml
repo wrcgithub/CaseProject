@@ -4,7 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="demo.wrc.com.project.base.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="demo.wrc.com.project.activity.ActivityUI">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/child_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        title="UI篇"
+        titleTextColor="#ff0"
+        app:subtitle="Translucent_Palette"
+        popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        />
     <demo.wrc.com.project.view.MyScrollView
         android:id="@+id/main_http_scrollview"
         android:paddingTop="?attr/actionBarSize"
