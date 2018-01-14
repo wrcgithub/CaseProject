@@ -6,8 +6,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="demo.wrc.com.project.activity.ActivityUI">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
     <android.support.v7.widget.Toolbar
         android:id="@+id/child_toolbar"
+        app:layout_scrollFlags="scroll|enterAlways"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -15,33 +19,12 @@
         titleTextColor="#ff0"
         subtitle="Recycler"
         />
+</android.support.design.widget.AppBarLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_ui_one"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:divider="#ffff0000"
         android:dividerHeight="10dp"
-        android:paddingTop="?attr/actionBarSize"
-        android:clipChildren="false"
-        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <!--<ImageButton
-        android:id="@+id/fab"
-        android:layout_width="58dp"
-        android:layout_height="58dp"
-        android:layout_margin="16dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/fab_bg"
-        app:layout_behavior="demo.wrc.com.project.fragment.ui_material_design.behavior.FabBehavior"
-        android:src="@mipmap/ic_favorite_outline_white_24dp"
-        /> -->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="58dp"
-        android:layout_height="58dp"
-        android:layout_margin="16dp"
-        android:layout_gravity="bottom|end"
-        app:layout_behavior="demo.wrc.com.project.fragment.ui_material_design.behavior.FabBehavior"
-        android:src="@mipmap/ic_favorite_outline_white_24dp"
-        />
 </android.support.design.widget.CoordinatorLayout>

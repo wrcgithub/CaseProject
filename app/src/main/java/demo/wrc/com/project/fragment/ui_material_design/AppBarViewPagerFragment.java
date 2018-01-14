@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import demo.wrc.com.project.R;
@@ -16,8 +17,9 @@ import demo.wrc.com.project.base.BaseFragment;
  * Created by wrc_urovo on 2018/1/8/008.
  */
 
-public class TableLayoutFragment extends BaseFragment {
+public class AppBarViewPagerFragment extends BaseFragment {
     private TabLayout tabLayout;
+    private Toolbar childToolBar;
     private String[] title = {
 		"头条",
 		"新闻",
@@ -33,13 +35,21 @@ public class TableLayoutFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         
-        return R.layout.fragment_ui_tablelayout;
+        return R.layout.fragment_ui_appbar_viewpager;
     }
     
-    
+    @Override
+    public void onResume() {
+        
+        super.onResume();
+        childToolBar.setTitle("UI篇");
+        childToolBar.setSubtitle("AppBarViewpager");
+    }
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        initToolBar("UI篇","TabLayout",0);
+//        initToolBar("UI篇","TabLayout",0);
+        toolbar.setVisibility(View.GONE);
+        childToolBar = (Toolbar) view.findViewById(R.id.child_toolbar);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.vp);
         tabLayout = (TabLayout)view.findViewById(R.id.tablayout);
         MyPagerAdapter adapter = new MyPagerAdapter(getFragmentManager());
@@ -95,7 +105,7 @@ public class TableLayoutFragment extends BaseFragment {
         
         @Override
         public Fragment getItem(int position) {
-            Fragment f = new TabLayoutDetailFragment();
+            Fragment f = new AppBarViewPagerDetailFragment();
             Bundle bundle = new Bundle();
             bundle.putString("title", title[position]);
             f.setArguments(bundle);

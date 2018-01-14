@@ -1,8 +1,10 @@
 package demo.wrc.com.project.fragment.ui_material_design;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import demo.wrc.com.project.R;
 import demo.wrc.com.project.adapter.RecyclerViewWaterfallsAdapter;
 import demo.wrc.com.project.base.BaseFragment;
 import demo.wrc.com.project.callback.OnClickDialogChoice;
+import demo.wrc.com.project.fragment.ui_material_design.listener.HideScrollListener;
 import demo.wrc.com.project.listener.ItemClickSupport;
 import demo.wrc.com.project.model.TestInfo;
 import demo.wrc.com.project.popup.DialogCustomUtil;
@@ -23,13 +26,15 @@ import demo.wrc.com.project.utils.ToastUtil;
  * Created by wrc_urovo on 2018/1/8/008.
  */
 
-public class RecyclerFragment extends BaseFragment {
+public class RecyclerFragment extends BaseFragment implements HideScrollListener{
         
         
         private RecyclerView mRecyclerView;
         
         private List<TestInfo> listTest;
         private RecyclerViewWaterfallsAdapter adapter;
+    private Toolbar childToolBar;
+    private FloatingActionButton fab;
         
         @Override
         protected int getLayoutId() {
@@ -40,12 +45,21 @@ public class RecyclerFragment extends BaseFragment {
         
         @Override
         protected void initView(View view, Bundle savedInstanceState) {
-        initToolBar("UI篇","Recycler",0);
+//        initToolBar("UI篇","Recycler",0);
+            toolbar.setVisibility(View.GONE);
+            childToolBar = (Toolbar) view.findViewById(R.id.child_toolbar);
+            fab = (FloatingActionButton) view.findViewById(R.id.fab);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_ui_one);
-        
-        
+//        mRecyclerView.addOnScrollListener(new FabScrollListener(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
+    @Override
+    public void onResume() {
         
+        super.onResume();
+        childToolBar.setTitle("UI篇");
+        childToolBar.setSubtitle("RecyclerView");
+    }
         
         @Override
         protected void initData() {
@@ -74,10 +88,10 @@ public class RecyclerFragment extends BaseFragment {
         mRecyclerView.setAdapter(adapter);
         
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                
+
                 super.onScrollStateChanged(recyclerView, newState);
 //                staggeredGridLayoutManager.invalidateSpanAssignments();//避免上下滑动时出现错位
             }
@@ -156,4 +170,24 @@ public class RecyclerFragment extends BaseFragment {
         public void onClick(View v) {
         
     }
+    
+    
+    @Override
+    public void onHide() {
+//        // 隐藏动画--属性动画
+//        childToolBar.animate().translationY(-childToolBar.getHeight()).setInterpolator(new AccelerateInterpolator(1));
+//        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fab.getLayoutParams();
+//
+//        fab.animate().translationY(fab.getHeight()+layoutParams.bottomMargin).setInterpolator(new AccelerateInterpolator(1));
     }
+    
+    
+    @Override
+    public void onShow() {
+//        // 显示动画--属性动画
+//        childToolBar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(1));
+//
+//        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fab.getLayoutParams();
+//        fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(1));
+    }
+}

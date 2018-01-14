@@ -73,6 +73,19 @@ public class TranslucentScrollToolbarAndPaletteFragment extends BaseFragment imp
                 //获取某种特性颜色的样品
 //				Swatch lightVibrantSwatch = palette.getLightVibrantSwatch();
                 Palette.Swatch lightVibrantSwatch = palette.getVibrantSwatch();
+               if (lightVibrantSwatch == null){
+                   lightVibrantSwatch = palette.getLightVibrantSwatch();
+                   if (lightVibrantSwatch == null){
+                       lightVibrantSwatch = palette.getLightMutedSwatch();
+                       if (lightVibrantSwatch == null){
+                           lightVibrantSwatch = palette.getDarkVibrantSwatch();
+                           if (lightVibrantSwatch == null){
+                               lightVibrantSwatch = palette.getDominantSwatch();
+                           }
+                       }
+                   }
+                   
+               }
                 //谷歌推荐的：图片的整体的颜色rgb的混合值---主色调
                 int rgb = lightVibrantSwatch.getRgb();
                 //谷歌推荐：图片中间的文字颜色

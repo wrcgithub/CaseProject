@@ -15,6 +15,11 @@ import demo.wrc.com.project.R;
 import demo.wrc.com.project.activity.ActivityUI;
 import demo.wrc.com.project.adapter.RecyclerViewUIoneAdapter;
 import demo.wrc.com.project.base.BaseFragment;
+import demo.wrc.com.project.fragment.ui_material_design.AnimationFragment;
+import demo.wrc.com.project.fragment.ui_material_design.AppBarLayoutFragment;
+import demo.wrc.com.project.fragment.ui_material_design.AppBarViewPagerFragment;
+import demo.wrc.com.project.fragment.ui_material_design.BehaviorFragment;
+import demo.wrc.com.project.fragment.ui_material_design.CollapsingToolbarLayoutFragment;
 import demo.wrc.com.project.fragment.ui_material_design.RecyclerFragment;
 import demo.wrc.com.project.fragment.ui_material_design.TableLayoutFragment;
 import demo.wrc.com.project.fragment.ui_material_design.TranslucentScrollToolbarAndPaletteFragment;
@@ -118,11 +123,36 @@ public class UIFragmentOne extends BaseFragment {
         map1.put("RecyclerView",RecyclerFragment.class);
         listTest.add(map1);
         Map<String ,Class> map2  = new HashMap<>();
-        map2.put("palette",TranslucentScrollToolbarAndPaletteFragment.class);
+        map2.put("Palette",TranslucentScrollToolbarAndPaletteFragment.class);
         listTest.add(map2);
         Map<String ,Class> map3  = new HashMap<>();
-        map3.put("tablayout",TableLayoutFragment.class);
+        map3.put("TabLayout",TableLayoutFragment.class);
         listTest.add(map3);
+    
+        Map<String ,Class> map4  = new HashMap<>();
+        map4.put("AppBarLayout",AppBarLayoutFragment.class);
+        listTest.add(map4);
+        
+        Map<String ,Class> map5  = new HashMap<>();
+        map5.put("AppBarViewpager",AppBarViewPagerFragment.class);
+        listTest.add(map5);
+    
+        Map<String ,Class> map6  = new HashMap<>();
+        map6.put("CollapsingToolbarLayout",CollapsingToolbarLayoutFragment.class);
+        listTest.add(map6);
+    
+        Map<String ,Class> map7  = new HashMap<>();
+        map7.put("Behavior",BehaviorFragment.class);
+        listTest.add(map7);
+    
+        Map<String ,Class> map8  = new HashMap<>();
+        map8.put("Animation",AnimationFragment.class);
+        listTest.add(map8);
+    
+        Map<String ,Class> map0  = new HashMap<>();
+        map0.put("-----",UIFragmentOne.class);
+        listTest.add(map0);
+        
         return listTest;
     }
     

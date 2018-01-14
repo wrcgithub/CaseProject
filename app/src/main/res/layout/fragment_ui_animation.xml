@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="demo.wrc.com.project.activity.ActivityUI">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+            <ImageView
+                android:id="@+id/animation_meinv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@mipmap/meinv01"/>
+
+            <ImageView
+                android:id="@+id/animation_meinv02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@mipmap/meinv02"/>
+
+            <ImageView
+                android:id="@+id/animation_meinv03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@mipmap/meinv03"/>
+            android:src="@mipmap/dabai01"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp30"/>
+            <ImageView
+                android:id="@+id/animation_meinv04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:scaleType="centerInside"
+                android:src="@mipmap/dabai01"/>
+            <ImageView
+                android:id="@+id/animation_meinv05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:scaleType="centerInside"
+                android:visibility="invisible"
+                android:src="@mipmap/dabai01"/>
+            <ImageView
+                android:id="@+id/animation_meinv06"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:scaleType="centerInside"
+                android:src="@mipmap/dabai01"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp500"/>
+
+</LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

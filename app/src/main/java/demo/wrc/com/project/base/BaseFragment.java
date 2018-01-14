@@ -27,7 +27,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.mActivity = (Activity)context;
+        this.mActivity = getActivity();
     }
 
     @Nullable
