@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    tools:context="demo.wrc.com.project.activity.ActivityUI">
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp25"/>
+    <ImageView
+        android:id="@+id/animation_second_img01"
+        android:layout_width="@dimen/dp80"
+        android:layout_height="@dimen/dp50"
+        android:transitionName="image01"
+        android:scaleType="fitXY"
+        android:src="@mipmap/meinv03"/>
+
+</LinearLayout>

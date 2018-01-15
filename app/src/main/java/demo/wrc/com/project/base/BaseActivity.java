@@ -38,7 +38,7 @@ public abstract class BaseActivity extends BaseTranslucentActivity {
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);//运行使用转场动画，适用于Android5.0以上
         super.onCreate(savedInstanceState);
 //		initView();
 //		initData();

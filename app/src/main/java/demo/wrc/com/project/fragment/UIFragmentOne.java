@@ -16,6 +16,9 @@ import demo.wrc.com.project.activity.ActivityUI;
 import demo.wrc.com.project.adapter.RecyclerViewUIoneAdapter;
 import demo.wrc.com.project.base.BaseFragment;
 import demo.wrc.com.project.fragment.ui_material_design.AnimationFragment;
+import demo.wrc.com.project.fragment.ui_material_design.AnimationSafariFragment;
+import demo.wrc.com.project.fragment.ui_material_design.AnimationSecondFragment;
+import demo.wrc.com.project.fragment.ui_material_design.AnimationThreeFragment;
 import demo.wrc.com.project.fragment.ui_material_design.AppBarLayoutFragment;
 import demo.wrc.com.project.fragment.ui_material_design.AppBarViewPagerFragment;
 import demo.wrc.com.project.fragment.ui_material_design.BehaviorFragment;
@@ -103,7 +106,9 @@ public class UIFragmentOne extends BaseFragment {
     
             @Override
             public void onItemClicked(RecyclerView recyclerView, final int position, View v) {
-    
+                //activity之间转场动画，适用于Android5.0及以上
+//                mActivity.overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);//左进右出
+                mActivity.overridePendingTransition(android.R.anim.cycle_interpolator,android.R.anim.cycle_interpolator);
                 Intent intent = new Intent(getActivity(), ActivityUI.class);
                 intent.putExtra("fragment",listTest.get(position).get(listTest.get(position).keySet().toString().replace("[","").replace("]","")));
                 startActivity(intent);
@@ -148,6 +153,19 @@ public class UIFragmentOne extends BaseFragment {
         Map<String ,Class> map8  = new HashMap<>();
         map8.put("Animation",AnimationFragment.class);
         listTest.add(map8);
+    
+        Map<String ,Class> map9  = new HashMap<>();
+        map9.put("AnimationSafari",AnimationSafariFragment.class);
+        listTest.add(map9);
+    
+        Map<String ,Class> map10  = new HashMap<>();
+        map10.put("AnimationSecond",AnimationSecondFragment.class);
+        listTest.add(map10);
+    
+        Map<String ,Class> map11  = new HashMap<>();
+        map11.put("AnimationThree", AnimationThreeFragment.class);
+        listTest.add(map11);
+        
     
         Map<String ,Class> map0  = new HashMap<>();
         map0.put("-----",UIFragmentOne.class);
