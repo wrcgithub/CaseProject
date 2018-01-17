@@ -24,6 +24,7 @@ import demo.wrc.com.project.fragment.ui_material_design.AppBarViewPagerFragment;
 import demo.wrc.com.project.fragment.ui_material_design.BehaviorFragment;
 import demo.wrc.com.project.fragment.ui_material_design.CollapsingToolbarLayoutFragment;
 import demo.wrc.com.project.fragment.ui_material_design.RecyclerFragment;
+import demo.wrc.com.project.fragment.ui_material_design.SVGFragment;
 import demo.wrc.com.project.fragment.ui_material_design.TableLayoutFragment;
 import demo.wrc.com.project.fragment.ui_material_design.TranslucentScrollToolbarAndPaletteFragment;
 import demo.wrc.com.project.listener.ItemClickSupport;
@@ -165,6 +166,10 @@ public class UIFragmentOne extends BaseFragment {
         Map<String ,Class> map11  = new HashMap<>();
         map11.put("AnimationThree", AnimationThreeFragment.class);
         listTest.add(map11);
+    
+        Map<String ,Class> map12  = new HashMap<>();
+        map12.put("SVG", SVGFragment.class);
+        listTest.add(map12);
         
     
         Map<String ,Class> map0  = new HashMap<>();

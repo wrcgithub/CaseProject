@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="demo.wrc.com.project.activity.ActivityUI">
+
+    <ImageView
+        android:id="@+id/ui_svg_img01"
+        android:layout_width="@dimen/dp100"
+        android:layout_height="@dimen/dp200"
+        android:src="@drawable/svg_img_horse"/>
+
+
+    <ImageView
+        android:id="@+id/ui_svg_img02"
+        android:layout_width="@dimen/dp100"
+        android:layout_height="@dimen/dp100"
+        android:src="@drawable/svg_img_apple"
+        />
+    <ImageView
+        android:id="@+id/ui_svg_img03"
+        android:layout_width="@dimen/dp100"
+        android:layout_height="@dimen/dp100"
+        android:src="@drawable/svg_star_anim_vector"
+        />
+</LinearLayout>
