@@ -1,9 +1,10 @@
-package demo.wrc.com.project.fragment;
+package demo.wrc.com.project.fragment.http;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -16,39 +17,45 @@ import demo.wrc.com.project.activity.ActivityHttp;
 import demo.wrc.com.project.adapter.RecyclerViewUIoneAdapter;
 import demo.wrc.com.project.base.BaseFragment;
 import demo.wrc.com.project.callback.TranslucentListener;
-import demo.wrc.com.project.fragment.http.OKHttpFragment;
 import demo.wrc.com.project.listener.ItemClickSupport;
 import demo.wrc.com.project.recycler.RecycleViewDivider;
 import demo.wrc.com.project.utils.ToastUtil;
 
 
 /**
- * Created by wrc on 2017/11/26/026.
+ * Created by wrc_urovo on 2018/1/8/008.
  */
-public class HttpFragment extends BaseFragment implements TranslucentListener{
+
+public class OKHttpFragment extends BaseFragment implements TranslucentListener{
+    private Toolbar childToolBar;
     private RecyclerView mRecyclerView;
     
     private List<Map<String ,Class>> listTest;
     private RecyclerViewUIoneAdapter adapter;
     @Override
     protected int getLayoutId() {
-
-        return R.layout.fragment_main_http;
+        
+        return R.layout.fragment_http_okhttp;
     }
-
-
+    
+    
+    @Override
+    public void onResume() {
+        
+        super.onResume();
+        childToolBar.setTitle("HTTP篇");
+    }
+    
+    
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        initToolBar("HTTP篇", "OKHttp", 0);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_main_http);
-        
-       
-    }
-
-    @Override
-    protected void initData() {
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_http_okhttp);
+//        initToolBar("UI篇","Translucent_Palette",0);
+        toolbar.setVisibility(View.GONE);
+        childToolBar = (Toolbar) view.findViewById(R.id.child_toolbar);
+    
         testData();
-        adapter = new RecyclerViewUIoneAdapter(HttpFragment.this, listTest);
+        adapter = new RecyclerViewUIoneAdapter(OKHttpFragment.this, listTest);
         //listView 样式
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(
@@ -87,24 +94,32 @@ public class HttpFragment extends BaseFragment implements TranslucentListener{
 //                addMultipleFragments(R.id.frament_container_main,listTest.get(position).get(listTest.get(position).keySet().toString().replace("[","").replace("]","")));
             }
         });
+    
     }
-
-
+    
+    
+    @Override
+    protected void initData() {
+    
+    }
+    
+    
     @Override
     public void onClick(View v) {
-
+    
     }
     
     
     @Override
     public void onTranlucent(float alpha) {
+        childToolBar.setAlpha(alpha);
     }
     
     protected List<Map<String ,Class>> testData() {
         
         listTest = new ArrayList<Map<String ,Class>>();
         Map<String ,Class> map1  = new HashMap<>();
-        map1.put("RecyclerView",OKHttpFragment.class);
+        map1.put("RecyclerView",OKHttpGetPostFragment.class);
         listTest.add(map1);
         
         return listTest;

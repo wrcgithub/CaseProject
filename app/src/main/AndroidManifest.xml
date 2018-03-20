@@ -28,7 +28,9 @@
         <activity android:name=".activity.ActivityUI">
 
         </activity>
+        <activity android:name=".activity.ActivityHttp">
 
+        </activity>
 
     </application>
 

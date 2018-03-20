@@ -112,7 +112,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 fragmentManager(R.id.frament_container_main, UIFragment.class);
                 break;
             case R.id.rb_http:
-                ToastUtil.toast("【网络】 -- 暂无内容");
                 fragmentManager(R.id.frament_container_main,HttpFragment.class);
                 break;
             case R.id.rb_sqlite:
