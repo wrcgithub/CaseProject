@@ -104,7 +104,7 @@ public class HttpFragment extends BaseFragment implements TranslucentListener{
         
         listTest = new ArrayList<Map<String ,Class>>();
         Map<String ,Class> map1  = new HashMap<>();
-        map1.put("RecyclerView",OKHttpFragment.class);
+        map1.put("OKHttp",OKHttpFragment.class);
         listTest.add(map1);
         
         return listTest;

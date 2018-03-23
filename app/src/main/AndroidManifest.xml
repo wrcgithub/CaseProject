@@ -31,6 +31,9 @@
         <activity android:name=".activity.ActivityHttp">
 
         </activity>
+        <activity android:name=".activity.ActivityDB">
+
+        </activity>
 
     </application>
 
